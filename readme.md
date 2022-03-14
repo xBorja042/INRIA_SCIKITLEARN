@@ -36,9 +36,20 @@ from sklearn import set_config
 set_config(display='diagram')
 model
 
-7.- HAY MODELOS MÁS POTENTES QUE LOS LINEARS MODELS. COMO LOS GRADIENT-BOOSTED TREES. LAS VENTAJAS DE LOS MODELOS LINEALES ES QUE SUELEN SER SENCILLOS COMPUTACIONALMENTE. LOS GBTREES NO PRECISAN ESCALADO DE LAS FEATURES Y SE PUEDE USAR UN CODIFICADO ORDNIAL DE LAS FEATURES, NO ES NCESARIO ONE HOT ENCODING.
+7.- HAY MODELOS MÁS POTENTES QUE LOS LINEARS MODELS. COMO LOS GRADIENT-BOOSTED TREES. LAS VENTAJAS DE LOS MODELOS LINEALES ES QUE SUELEN SER SENCILLOS COMPUTACIONALMENTE. LOS GBTREES NO PRECISAN ESCALADO DE LAS FEATURES Y SE PUEDE USAR UN CODIFICADO ORDNIAL DE LAS FEATURES, NO ES NCESARIO ONE HOT ENCODING. ESTE ONE HOT ENCODING LO UNICO QUE HACER ES AUMENTAR LOS TIEMPOS COMPUTACIONALES PERO NO MEJORAN LA PRECISION.
 from sklearn.ensemble import HistGradientBoostingClassifier
 
 This estimator is much faster than GradientBoostingClassifier for big datasets (n_samples >= 10 000).
 
 This estimator has native support for missing values (NaNs). During training, the tree grower learns at each split point whether samples with missing values should go to the left or right child, based on the potential gain. When predicting, samples with missing values are assigned to the left or right child consequently. If no missing values were encountered for a given feature during training, then samples with missing values are mapped to whichever child has the most samples.
+
+Which encoder should I use?
+
+				   Meaningful order 				Non-meaningful order
+
+Tree-based model   OrdinalEncoder					OrdinalEncoder
+Linear model       OrdinalEncoder with caution 		OneHotEncoder
+
+OneHotEncoder: will always do something meaningful, but can be unnecessary slow with trees.
+
+OrdinalEncoder: can be detrimental for linear models unless your category has a meaningful order and you make sure that OrdinalEncoder respects this order. Trees can deal with OrdinalEncoder fine as long as they are deep enough.
