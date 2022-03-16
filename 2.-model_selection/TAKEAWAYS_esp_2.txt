@@ -1,9 +1,20 @@
+0.- De cara a estudiar la performance de un modelo lo suyo es usar cross validation. Con random splits, que aunque tarden serán resultados más fieles. No garantiza
+que todas las partes serán diferentes:
+
+from sklearn.model_selection import cross_validate
+from sklearn.model_selection import ShuffleSplit
+
+ss = ShuffleSplit(random_state = 0)
+cross_v = cross_validate(svc, data, target, cv = ss)
+
 1.- Los modelos muy complejos overfitean, son capaces de explicar muy bien los datos que han visto pero son malos generalizando.
 Esto pasa cuando:
 	- El número de muestras en train es pequeño.
 	- El error en test es mucho mayor que el training error.
-
+<i>
 Los modelos simples underfitean. No capturan bien variaciones pequeñas o ruido.
-	- No son capaces de capturar bien la forma del training set y la performance es mala incluso en train.
+	- No son capaces de capturar bien la forma del training set y la performance es mala incluso en train.</i>
 
 Regularización: Ir de un modelo complejo a un modelo más sencillo cambiando parámetros. 
+
+2.- Obviamente, cuántos más datos utilicemos para entrenar, mejor. Especialmente útil en cross-validation. Si añadiendo nuevas muestras alcanzamos un Plateau de performance el modelo no debería mejorar. Tocaría buscar un modelo más complejo.
