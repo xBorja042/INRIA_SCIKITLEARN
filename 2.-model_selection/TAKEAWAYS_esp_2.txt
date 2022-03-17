@@ -6,15 +6,60 @@ from sklearn.model_selection import ShuffleSplit
 
 ss = ShuffleSplit(random_state = 0)
 cross_v = cross_validate(svc, data, target, cv = ss)
+Esto devuelve el diccionario con el score y los tiempos de entrenamiento y evaluación. Permite especificar métricas diferentes.
+
+sklearn.model_selection.cross_val_score
+devuelve solo las scores
+
+
 
 1.- Los modelos muy complejos overfitean, son capaces de explicar muy bien los datos que han visto pero son malos generalizando.
 Esto pasa cuando:
 	- El número de muestras en train es pequeño.
 	- El error en test es mucho mayor que el training error.
-<i>
+
 Los modelos simples underfitean. No capturan bien variaciones pequeñas o ruido.
-	- No son capaces de capturar bien la forma del training set y la performance es mala incluso en train.</i>
+	- No son capaces de capturar bien la forma del training set y la performance es mala incluso en train.
 
 Regularización: Ir de un modelo complejo a un modelo más sencillo cambiando parámetros. 
 
 2.- Obviamente, cuántos más datos utilicemos para entrenar, mejor. Especialmente útil en cross-validation. Si añadiendo nuevas muestras alcanzamos un Plateau de performance el modelo no debería mejorar. Tocaría buscar un modelo más complejo.
+
+3.- BIAS - VARIANCE TRADEOFF. 
+High Bias == Underfitting. Errores de predicción sistemáticos. El modelo parece obviar ciertas zonas o aspectos de los datos.
+High Variance == Overfitting. Errores de predicción sin una estructura obvia. Modelos inestables en los que un pequeño cambio en el training
+set se refleja en un cambio grande en el resultado.
+
+4.- Se pueden ver los parámetros de los preprocessor y modelos directamente desde el pipeline.
+
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import NearestNeighbors
+
+sc = StandardScaler()
+neigh = NearestNeighbors()
+p = make_pipeline(StandardScaler(), neigh)
+
+p.get_params()
+
+5.- La partición train - test se puede especificar en el shuffle split que le entra al cross validate. Nótese que se le puede pedir
+el train score:
+
+from sklearn.model_selection import cross_validate
+from sklearn.model_selection import ShuffleSplit
+
+ss = ShuffleSplit(random_state = 0, test_size=0.25, n_splits = 10)
+cv = cross_validate(p, data, target, cv=ss, scoring="balanced_accuracy", return_train_score=True)
+
+cv["train_score"], cv["test_score"]
+
+Wrap-up
+Overfitting is caused by the limited size of the training set, the noise in the data, and the high flexibility of common machine learning models.
+
+Underfitting happens when the learnt prediction functions suffer from systematic errors. This can be caused by a choice of model family and parameters, which leads to a lack of flexibility to capture the repeatable structure of the true data generating process.
+
+For a fixed training set, the objective is to minimize the test error by adjusting the model family and its parameters to find the best trade-off between overfitting for underfitting.
+
+For a given choice of model family and parameters, increasing the training set size will decrease overfitting but can also cause an increase of underfitting.
+
+The test error of a model that is neither overfitting nor underfitting can still be high if the variations of the target variable cannot be fully determined by the input features. This irreducible error is caused by what we sometimes call label noise. In practice, this often happens when we do not have access to important features for one reason or another.
