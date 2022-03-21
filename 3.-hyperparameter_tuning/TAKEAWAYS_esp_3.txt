@@ -1,0 +1,26 @@
+0.- Se puede hacer tuneado automático de parámetros con GridSearchCV. Recibe un param_grid que es un diccionario y testea todas las combinaciones paramétricas.
+
+from sklearn.model_selection import GridSearchCV
+
+param_grid = {
+    'classifier__learning_rate': (0.01, 0.1, 1, 10),
+    'classifier__max_leaf_nodes': (3, 10, 30)}
+model_grid_search = GridSearchCV(model, param_grid=param_grid,
+                                 n_jobs=2, cv=2)
+model_grid_search.fit(data_train, target_train) 
+
+Luego, nos quedaremos con el mejor modelo y podremos saber su parametría:
+
+model_grid_search.predict(data_test.iloc[0:5])
+print(f"The best set of parameters is: "
+      f"{model_grid_search.best_params_}")
+
+>> Podemos quedarnos con todos los resultados en un dataframe:
+
+ cv_results = pd.DataFrame(model_grid_search.cv_results_).sort_values(
+    "mean_test_score", ascending=False)
+
+>> Se puede hacer mucha magia de visualización para tenerlo en un Heatmap.
+
+** Searching for more than two hyperparamters is too costly;
+** A grid-search does not necessarily find an optimal solution.
