@@ -28,6 +28,10 @@ print(f"The best set of parameters is: "
 1.- The RandomizedSearchCV class allows for such stochastic search. It is used similarly to the GridSearchCV but the sampling distributions need to be specified instead of the parameter values. For instance, we will draw candidates using a log-uniform distribution because the parameters we are interested in take positive values with a natural log scaling (.1 is as close to 1 as 10 is).
 Random search (with RandomizedSearchCV) is typically beneficial compared to grid search (with GridSearchCV) to optimize 3 or more hyperparameters.
 
+Frente a GridSearch es conveniente porque en esta última es relativamente sencillo que pasemos por la zona que no tiene los mejores parámetros. Sin embargo, en Randomized al usar una distribución es más posible encontrar esa región. 
+
+Random search (with RandomizedSearchCV) is typically beneficial compared to grid search (with GridSearchCV) to optimize 3 or more hyperparameters.
+
 2.- Cómo funciona Grid Search en K-fold Cross Valid con n_splits == 5??
 Para cada split de cross valid se entrena un modelo en datos de train en 3/5 y evalúa esos hyperparams en un conjunto 1/5 a veces llamado validación y se escogen los mejores hyperparams. Finalmente, con esos hyperparams se entrena un modelo en esos (3+1)/5  y se evalúa en el conjunto de test 1/5. 
 
