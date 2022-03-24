@@ -36,3 +36,13 @@ Random search (with RandomizedSearchCV) is typically beneficial compared to grid
 Para cada split de cross valid se entrena un modelo en datos de train en 3/5 y evalúa esos hyperparams en un conjunto 1/5 a veces llamado validación y se escogen los mejores hyperparams. Finalmente, con esos hyperparams se entrena un modelo en esos (3+1)/5  y se evalúa en el conjunto de test 1/5. 
 
 Sin embargo, esto solo es una previa Xvalid. Es habitual hacer la llamada xvalid anidada, que dice que una vez hecha la xvalid previa para elegir params se debe hacer otra con el mejor modelo para evaluar su capacidad de generalización.
+
+
+Wrap-up
+Hyperparameters have an impact on the model's performance and should be wisely chosen;
+
+The search for the best hyperparameters can be automated with a grid-search approach or a randomized search approach;
+
+A grid-search is expensive and does not scale when the number of hyperparameters to optimize increase. Besides, the combination are sampled only on a regular grid.
+
+A randomized-search allows a search with a fixed budget even with an increasing number of hyperparameters. Besides, the combination are sampled on a non-regular grid.
