@@ -1,0 +1,6 @@
+0.- 
+* Linear models es bien porque:
+- Simples, rápidos de entrenar y buena explicatividad. 
+* Tienden a underfittear cuando:
+Hay pocas features y muchas muestras. Se puede hacer algo con feature engineering. 
+* Si se tienen muchas features van a ser difíciles de batir incluso por modelos más complejos.
