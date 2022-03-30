@@ -4,3 +4,19 @@
 * Tienden a underfittear cuando:
 Hay pocas features y muchas muestras. Se puede hacer algo con feature engineering. 
 * Si se tienen muchas features van a ser difíciles de batir incluso por modelos más complejos.
+Son malos cuando el problema no es linealmente separable.
+
+
+A linear regression model minimizes the mean squared error on the training set. This means that the parameters obtained after the fit (i.e. coef_ and intercept_) are the optimal parameters that minimizes the mean squared error. In other words, any other choice of parameters will yield a model with a higher mean squared error on the training set.
+
+However, the mean squared error is difficult to interpret. The mean absolute error is more intuitive since it provides an error in the same unit as the one of the target.
+
+1.- Pueden overfittear:
+- n_samples << n_features
+- Muchas features con poca info.
+
+2.- Para arreglar el overfitting:
+  Regularizacion
+  RIDGE --> Intenta llevar los coeficientes a 0. Este efecto se controla con el parámetro alfa. Se puede obtener el buen alfa ya sea mediante GridSearch o utilizando RidgeCv. 
+
+ 3.- Logistic Regs on scikit learn ya están regularizados. Se controla con el parámetro C, que a más C menos regularización. 
