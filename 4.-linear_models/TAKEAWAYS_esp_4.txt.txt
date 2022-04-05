@@ -17,6 +17,11 @@ However, the mean squared error is difficult to interpret. The mean absolute err
 
 2.- Para arreglar el overfitting:
   Regularizacion
-  RIDGE --> Intenta llevar los coeficientes a 0. Este efecto se controla con el parámetro alfa. Se puede obtener el buen alfa ya sea mediante GridSearch o utilizando RidgeCv. 
+  RIDGE --> Intenta llevar los coeficientes a 0. Este efecto se controla con el parámetro alfa. Se puede obtener el buen alfa ya sea mediante GridSearch o utilizando RidgeCv. Cuanto más grande, mayor regularización.
 
  3.- Logistic Regs on scikit learn ya están regularizados. Se controla con el parámetro C, que a más C menos regularización. 
+
+ 4.- Regularización fuerza a los pesos a que no tengan tanta desviación estándard. Si usamos regularización para reducir el overfitting va a ser importante escalar las features para que todas puedan contribuir de igual forma y volver a ser reescaladas con la regularización. Además este escalado podría ser importante para solvers basados en cálculo de gradiente.
+ Si aumentamos alfa en ridge decrecerán los valores de los pesos. Hay que tener cuidado al escalar variables categóricas porque si se han codificado por frecuencia quizá haya veces que dividamos casi por /~0. 
+
+ Va a ser importante tunear este alfa con Xvalid también.
