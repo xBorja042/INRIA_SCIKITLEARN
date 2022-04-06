@@ -25,3 +25,23 @@ However, the mean squared error is difficult to interpret. The mean absolute err
  Si aumentamos alfa en ridge decrecerán los valores de los pesos. Hay que tener cuidado al escalar variables categóricas porque si se han codificado por frecuencia quizá haya veces que dividamos casi por /~0. 
 
  Va a ser importante tunear este alfa con Xvalid también.
+
+
+ For linear models, regularization refers to controlling to size the weights. This is especially important when the model is fit on a data with either a small number of training samples or a large number of features, especially if some of those features are not very related to the target variable.
+
+TEST
+Regularization makes the linear models more constraints and can augment underfitting rather than reduce it. If the problem is not linearly separable, one should instead try to engineer new predictive features as we will explain later in this module.
+
+Fitting linear models that are robust to outliers is a complex issue that cannot be solved by simple regularization alone. Please refer to the scikit-learn documentation robust regression if you are interested.
+
+alpha is not changed during fit, only coef_ and intercept_ change when training the model.
+
+c) is wrong: one should never choose any hyper-parameters based on the test set: this will overestimate the generalization performance of the model.
+
+Here are some reasons for scaling features:
+
+When the original feature values have widely difference natural scales, fitting a linear model on the raw features can cause the learning procedure to fail because of numerical problems. Furthermore, if the model is regularized, the regularization would have comparitively little impact on the features with the largest scales because those features would anyway be assigned comparatively smaller weights when training the model. If many such features are not predictive, the benefit of using regularization would therefore be reduced.
+Scaling is not always necessary, for instance if the features values naturally vary with similar ranges by default.
+Since scaling features has a impact on the relative magnitude of the weights of the trained model, deciding to scale the features or not can change the optimal value of the regularization parameter of a linear model when this parameter is tuned to improve a generalization metric estimated using cross-validation.
+Many models such as logistic regression use numerical solvers (based on gradient descent) to find their optimal parameters. These solvers often converge much faster when the features are scaled.
+Note that the value of the regularization parameter can also impact the speed of convergence of gradient descent solvers.
