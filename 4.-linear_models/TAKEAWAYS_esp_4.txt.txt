@@ -45,3 +45,19 @@ Scaling is not always necessary, for instance if the features values naturally v
 Since scaling features has a impact on the relative magnitude of the weights of the trained model, deciding to scale the features or not can change the optimal value of the regularization parameter of a linear model when this parameter is tuned to improve a generalization metric estimated using cross-validation.
 Many models such as logistic regression use numerical solvers (based on gradient descent) to find their optimal parameters. These solvers often converge much faster when the features are scaled.
 Note that the value of the regularization parameter can also impact the speed of convergence of gradient descent solvers.
+
+
+Wrap-up
+In this module, we saw that:
+
+the predictions of a linear model depend on a weighted sum of the values of the input features added to an intercept parameter;
+
+fitting a linear model consists in adjusting both the weight coefficients and the intercept to minimize the prediction errors on the training set;
+
+to train linear models successfully it is often required to scale the input features approximately to the same dynamic range;
+
+regularization can be used to reduce over-fitting: weight coefficients are constrained to stay small when fitting;
+
+the regularization hyperparameter needs to be fine-tuned by cross-validation for each new machine learning problem and dataset;
+
+linear models can be used on problems where the target variable is not linearly related to the input features but this requires extra feature engineering work to transform the data in order to avoid under-fitting.
