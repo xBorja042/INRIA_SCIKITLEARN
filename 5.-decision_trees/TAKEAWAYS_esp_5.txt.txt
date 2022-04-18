@@ -1,0 +1,5 @@
+Decision Tree
+
+- Funcionan bien en tabular data porque no necesitan estar las featuras en la misma escala. Se van ajustando variable a variable.
+- Pueden underfittear si el número de splits es insuficiente. Y al revés, ovefittear si nos pasamos. Se refleja muy bien en la gráfica de la ~. Por eso usamos pruning y se talan los árboles. Hay que elegir bien la máximo profundidad o leaf nodes para controlar el tradeoff.
+- 
