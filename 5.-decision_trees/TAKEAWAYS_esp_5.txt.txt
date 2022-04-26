@@ -17,3 +17,15 @@ We have built a dataset where we will illustrate this asymmetry. We will generat
 - How should you choose the maximum depth of a decision tree?
 
  a) choosing the depth maximizing the score on a validation set with a cross-validation, with a grid-search for instance 
+
+
+ Wrap-up
+In this module, we presented decision trees in details. We saw that they:
+
+are suited for both regression and classification problems;
+
+are non-parametric models;
+
+are not able to extrapolate;
+
+are sensitive to hyperparameter tuning.
