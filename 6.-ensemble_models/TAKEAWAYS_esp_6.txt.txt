@@ -1,0 +1,8 @@
+1.- BAGGING
+a) BOOTSTRAPPING: Se hacen subsets y se fitean un modelo por cada subset. 
+b) AGGREGATING: Suma de los votos de los modelos.
+
+A pesar de que los modelos por separado cometan overfitting, la suma de los modelos hará menos overfitting.
+En regresión el procedimiento es similar y el overfit también será diferente para cada árbol. 
+
+Los RANDOM TREES son randoms ya que se utiliza un set de features aleatorio lo que decorrelará el error de predicción  
