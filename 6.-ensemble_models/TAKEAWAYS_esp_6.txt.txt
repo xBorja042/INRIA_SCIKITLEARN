@@ -5,4 +5,26 @@ b) AGGREGATING: Suma de los votos de los modelos.
 A pesar de que los modelos por separado cometan overfitting, la suma de los modelos hará menos overfitting.
 En regresión el procedimiento es similar y el overfit también será diferente para cada árbol. 
 
-Los RANDOM TREES son randoms ya que se utiliza un set de features aleatorio lo que decorrelará el error de predicción  
+Los RANDOM TREES son randoms ya que se utiliza un set de features aleatorio lo que decorrelará el error de predicción
+
+Without searching for optimal hyperparameters, the overall generalization
+performance of the bagging regressor is better than a single decision tree.
+In addition, the computational cost is reduced in comparison of seeking
+for the optimal hyperparameters.
+
+This shows the motivation behind the use of an ensemble learner: it gives a
+relatively good baseline with decent generalization performance without any
+parameter tuning.
+
+"Bagging" stands for Bootstrap AGGregatING. It uses bootstrap resampling (random sampling with replacement) to learn several models on random variations of the training set. At predict time, the predictions of each learner are aggregated to give the final predictions.
+
+First, we will generate a simple synthetic dataset to get insights regarding bootstraping.
+
+Bootstrap resampling¶
+A bootstrap sample corresponds to a resampling with replacement, of the original dataset, a sample that is the same size as the original dataset. Thus, the bootstrap sample will contain some data points several times while some of the original data points will not be present.
+
+Observe that the 3 variations all share common points with the original dataset. Some of the points are randomly resampled several times and appear as darker blue circles.
+
+The 3 generated bootstrap samples are all different from the original dataset and from each other. To confirm this intuition, we can check the number of unique samples in the bootstrap samples.
+
+It is possible to access the internal models of the ensemble stored as a Python list in the bagged_trees.estimators_ attribute after fitting.
