@@ -28,3 +28,16 @@ Observe that the 3 variations all share common points with the original dataset.
 The 3 generated bootstrap samples are all different from the original dataset and from each other. To confirm this intuition, we can check the number of unique samples in the bootstrap samples.
 
 It is possible to access the internal models of the ensemble stored as a Python list in the bagged_trees.estimators_ attribute after fitting.
+
+
+Random forests¶
+In this notebook, we will present the random forest models and show the differences with the bagging ensembles.
+
+Random forests are a popular model in machine learning. They are a modification of the bagging algorithm. In bagging, any classifier or regressor can be used. In random forests, the base classifier or regressor is always a decision tree.
+
+Random forests have another particularity: when training a tree, the search for the best split is done only on a subset of the original features taken at random. The random subsets are different for each split node. The goal is to inject additional randomization into the learning procedure to try to decorrelate the prediction errors of the individual trees.
+
+Therefore, random forests are using randomization on both axes of the data matrix:
+
+by bootstrapping samples for each tree in the forest;
+randomly selecting a subset of features at each node of the tree.
