@@ -41,3 +41,38 @@ Therefore, random forests are using randomization on both axes of the data matri
 
 by bootstrapping samples for each tree in the forest;
 randomly selecting a subset of features at each node of the tree.
+
+
+Q1
+Bagging corresponds to bootstrap-aggregating. Therefore, we resample the dataset with replacement several times to get several bootstrap samples. Each bootstrap sample will be used to train a model. The predictions of each model are aggregated via a vote or an average to give a final prediction for the ensemble as a whole.
+
+It is also possible to randomly resample the features using max_features with a value in the (0.0, 1.0) range but this is disabled by default (max_features=1.0 meaning all the features are used).
+
+For feature resampling, it is possible to choose between with replacement (bootstrap_features=True) or without replacement (bootstrap_features=False, the default).
+
+
+In the context of a classification problem, what are the differences between a bagging classifier and a random forest classifier:
+
+ a) in a random forest, the base model is always a decision tree c) in a random forest, a random resampling is performed both over features as well as over samples
+
+A random forest is a bagging ensemble using trees. It includes an additional random resampling on the features at each split node in the trees.
+
+
+2.- BOOSTING. 
+
+Tradicional 
+- Errores son re-pesados en cada paso.
+- Se puede usar cualquier modelo que acepte sample_weight
+
+vs Gradient Boosting
+- Cada modelo predice los errores de cada modelo previo.
+- En sklearn se usan árboles como base model.
+
+Mejor usar HistGradientBoosting que discretiza variables numéricas.
+
+
+			Bagging 				Boosting
+fit trees independientlly.		fit trees sequentially
+each deep tree overfits 		eache shallow tree underfits
+averaging the tree predictions	sequentially adding trees reduces underfitting
+reduces overfitting				
