@@ -76,3 +76,25 @@ fit trees independientlly.		fit trees sequentially
 each deep tree overfits 		eache shallow tree underfits
 averaging the tree predictions	sequentially adding trees reduces underfitting
 reduces overfitting				
+
+
+Scikit-learn provides specific classes which are even more optimized for large dataset, called HistGradientBoostingClassifier and HistGradientBoostingRegressor. Each feature in the dataset data is first binned by computing histograms, which are later used to evaluate the potential splits. The number of splits to evaluate is then much smaller. This algorithm becomes much more efficient than gradient boosting when the dataset has over 10,000 samples.
+
+
+HyperParam Tuning --> Random forest
+
+The main parameter to tune for random forest is the n_estimators parameter. In general, the more trees in the forest, the better the generalization performance will be. However, it will slow down the fitting and prediction time. The goal is to balance computing time and generalization performance when setting the number of estimators when putting such learner in production.
+
+Then, we could also tune a parameter that controls the depth of each tree in the forest. Two parameters are important for this: max_depth and max_leaf_nodes. They differ in the way they control the tree structure. Indeed, max_depth will enforce to have a more symmetric tree, while max_leaf_nodes does not impose such constraint.
+
+Be aware that with random forest, trees are generally deep since we are seeking to overfit each tree on each bootstrap sample because this will be mitigated by combining them altogether. Assembling underfitted trees (i.e. shallow trees) might also lead to an underfitted forest.
+
+
+HyperParam Tuning --> Gradient-boosting decision trees
+For gradient-boosting, parameters are coupled, so we cannot set the parameters one after the other anymore. The important parameters are n_estimators, learning_rate, and max_depth or max_leaf_nodes (as previously discussed random forest).
+
+Let's first discuss the max_depth (or max_leaf_nodes) parameter. We saw in the section on gradient-boosting that the algorithm fits the error of the previous tree in the ensemble. Thus, fitting fully grown trees would be detrimental. Indeed, the first tree of the ensemble would perfectly fit (overfit) the data and thus no subsequent tree would be required, since there would be no residuals. Therefore, the tree used in gradient-boosting should have a low depth, typically between 3 to 8 levels, or few leaves ( 23=8  to  28=256 ). Having very weak learners at each step will help reducing overfitting.
+
+With this consideration in mind, the deeper the trees, the faster the residuals will be corrected and less learners are required. Therefore, n_estimators should be increased if max_depth is lower.
+
+Finally, we have overlooked the impact of the learning_rate parameter until now. When fitting the residuals, we would like the tree to try to correct all possible errors or only a fraction of them. The learning-rate allows you to control this behaviour. A small learning-rate value would only correct the residuals of very few samples. If a large learning-rate is set (e.g., 1), we would fit the residuals of all samples. So, with a very low learning-rate, we will need more estimators to correct the overall error. However, a too large learning-rate tends to obtain an overfitted ensemble, similar to having a too large tree depth.
