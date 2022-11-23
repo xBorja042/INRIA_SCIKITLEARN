@@ -1,6 +1,6 @@
 # Takeaways Third Chapter (Español - Inglés)
 
-1. Se puede hacer tuneado automático de parámetros con GridSearchCV. Recibe un param_grid que es un diccionario y testea todas las combinaciones paramétricas.
+1. Se puede hacer tuneado automático de parámetros con **GridSearchCV.** Recibe un param_grid que es un diccionario y testea todas las combinaciones paramétricas.
 
 ```python
 from sklearn.model_selection import GridSearchCV
@@ -19,19 +19,19 @@ print(f"The best set of parameters is: "
       f"{model_grid_search.best_params_}")
 ```
 
->> Podemos quedarnos con todos los resultados en un dataframe:
+> Podemos quedarnos con todos los resultados en un dataframe:
 
 ```python
  cv_results = pd.DataFrame(model_grid_search.cv_results_).sort_values(
     "mean_test_score", ascending=False)
 ```
 
->> Se puede hacer mucha magia de visualización para tenerlo en un Heatmap.
+> Se puede hacer mucha magia de visualización para tenerlo en un Heatmap.
 
-** Searching for more than two hyperparamters is too costly;
-** A grid-search does not necessarily find an optimal solution.
+**Searching for more than two hyperparamters is too costly;**
+**A grid-search does not necessarily find an optimal solution.**
 
-2. The RandomizedSearchCV class allows for such stochastic search. It is used similarly to the GridSearchCV but the sampling distributions need to be specified instead of the parameter values. For instance, we will draw candidates using a log-uniform distribution because the parameters we are interested in take positive values with a natural log scaling (.1 is as close to 1 as 10 is).
+2. **The RandomizedSearchCV** class allows for such stochastic search. It is used similarly to the GridSearchCV but the sampling distributions need to be specified instead of the parameter values. For instance, we will draw candidates using a log-uniform distribution because the parameters we are interested in take positive values with a natural log scaling (.1 is as close to 1 as 10 is).
 Random search (with RandomizedSearchCV) is typically beneficial compared to grid search (with GridSearchCV) to optimize 3 or more hyperparameters.
 
 Frente a GridSearch es conveniente porque en esta última es relativamente sencillo que pasemos por la zona que no tiene los mejores parámetros. Sin embargo, en Randomized al usar una distribución es más posible encontrar esa región. 
